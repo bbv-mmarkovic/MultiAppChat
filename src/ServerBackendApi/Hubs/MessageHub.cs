@@ -1,5 +1,6 @@
 ﻿namespace ServerBackendApi.Hubs
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.SignalR;
@@ -11,6 +12,7 @@
         public async Task NewMessage(Message msg)
         {
             await this.Clients.All.SendAsync("MessageReceived", msg);
+            Console.WriteLine($"NewMessage: from={msg.clientuniqueid}, msg={msg.message}");
         }
 
     }
