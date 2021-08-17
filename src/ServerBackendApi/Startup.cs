@@ -29,7 +29,10 @@ namespace ServerBackendApi
                 {
                     builder
                         .AllowCredentials()
-                        .WithOrigins("http://localhost:4200")
+                        .WithOrigins(
+                            "http://localhost:4200",
+                            "http://localhost:20093",
+                            "https://localhost:44328")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .SetIsOriginAllowed(_ => true);
@@ -40,7 +43,7 @@ namespace ServerBackendApi
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                configuration.RootPath = "../angular-client-app/dist";
             });
         }
 
@@ -72,7 +75,7 @@ namespace ServerBackendApi
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
-
+            /*
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
@@ -84,7 +87,7 @@ namespace ServerBackendApi
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }
-            });
+            });*/
         }
     }
 }
