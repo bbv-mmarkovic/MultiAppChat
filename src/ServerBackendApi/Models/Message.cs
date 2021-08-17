@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ChatApp.Models
+﻿namespace ServerBackendApi.Models
 {
+    using System;
+
     public class Message
     {
         public string clientuniqueid { get; set; }

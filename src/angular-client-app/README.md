@@ -1,6 +1,11 @@
-# ClientApp
+# angular-client-app
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+
+Origin:
+https://github.com/AngularExamplesHub/angular-chat-app
+
+[Jayesh Agrawa](https://github.com/JayeshAgrawal) under [MIT License](https://github.com/AngularExamplesHub/angular-chat-app/blob/master/LICENSE).
 
 ## Development server
 
