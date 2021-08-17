@@ -20,7 +20,20 @@ namespace ChatApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddCors(option => option.AddPolicy(
+                "MyCorsPolicy",
+                builder =>
+                {
+                    builder
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .SetIsOriginAllowed(_ => true);
+                }
+            ));
 
             services.AddSignalR();
             // In production, the Angular files will be served from this directory
@@ -42,25 +55,28 @@ namespace ChatApp
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseRouting();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseCors("MyCorsPolicy");
 
-            app.UseSignalR(options =>
+            app.UseEndpoints(options =>
             {
                 options.MapHub<MessageHub>("/MessageHub");
             });
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(routes =>
             {
-                routes.MapRoute(
+                routes.MapControllerRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
+
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())

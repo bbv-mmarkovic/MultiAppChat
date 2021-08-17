@@ -22,7 +22,8 @@ export class ChatService {
 
   private createConnection() {
     this._hubConnection = new HubConnectionBuilder()
-      .withUrl(window.location.href + 'MessageHub')
+      //.withUrl(window.location.href + 'MessageHub')
+      .withUrl('http://localhost:5000/MessageHub')
       .build();
   }
 
