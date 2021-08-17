@@ -1,0 +1,94 @@
+﻿@inject NavigationManager navigationManager
+@using Microsoft.AspNetCore.SignalR.Client;
+
+@code
+{
+    // This code was created with the help of the microsoft MSDN documentation:
+    // https://docs.microsoft.com/en-us/azure/azure-signalr/signalr-tutorial-build-blazor-server-chat-app
+
+    private string newMessage;
+
+    private List<ChatMessage> messages = new List<ChatMessage>();
+
+    private string _hubUrl;
+
+    private HubConnection _hubConnection;
+
+    private async Task SendAsync(string message)
+    {
+        // TODO
+    }
+
+    public class ChatMessage
+    {
+        public string Message { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public string Type { get; set; } // 'received' or 'sent'
+
+        public string DateAsText
+        {
+            get
+            {
+                return "Date"; // this.Date.ToString("d");
+            }
+        }
+    }
+}
+
+<div class="container">
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="mesgs">
+                <div class="msg_history">
+                    <div>
+                        @foreach (var msg in messages)
+                        {
+                            @if (@msg.Type == "received")
+                            {
+                                <div class="incoming_msg">
+                                    <div class="incoming_msg_img"> </div>
+                                    <div class="received_msg">
+                                        <div class="received_withd_msg">
+                                            <p>
+                                                @msg.Message
+                                            </p>
+                                            <span class="time_date"> @msg.DateAsText </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else if (@msg.Type == "sent")
+                            {
+                                <div class="outgoing_msg">
+                                    <div class="sent_msg">
+                                        <p>
+                                            @msg.Message
+                                        </p>
+                                        <span class="time_date"> @msg.DateAsText</span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="type_msg">
+                    <div class="input_msg_write">
+                        <!--
+                        @bind="@newMessage"
+                        @onkeydown="@(() => SendAsync(@newMessage))"-->
+                        <input type="text" class="write_msg"
+                               placeholder="Type a message" />
+                        <!--
+                        @onclick="@(() => SendAsync(@newMessage))
+                        -->
+                        <button class="msg_send_btn" type="button">
+                            <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
