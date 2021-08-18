@@ -7,7 +7,6 @@ export class ChatService {
   messageReceived = new EventEmitter<Message>();
   connectionEstablished = new EventEmitter<Boolean>();
 
-  private connectionIsEstablished = false;
   private _hubConnection: HubConnection;
 
   constructor() {
@@ -17,6 +16,7 @@ export class ChatService {
   }
 
   sendMessage(message: Message) {
+    console.log('Sending. Hub state: ' + this._hubConnection.state);
     this._hubConnection.invoke('NewMessage', message);
   }
 
@@ -31,12 +31,11 @@ export class ChatService {
     this._hubConnection
       .start()
       .then(() => {
-        this.connectionIsEstablished = true;
         console.log('Hub connection started');
         this.connectionEstablished.emit(true);
       })
       .catch(err => {
-        console.log('Error while establishing connection, retrying...');
+        console.log('Error while establishing connection, retrying... ' + err);
         setTimeout(function () { this.startConnection(); }, 5000);
       });
   }

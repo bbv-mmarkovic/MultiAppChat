@@ -1,11 +1,12 @@
 
 <div class="container">
-  <h3 class=" text-center chat_header"><img src="./assets/angular.png" width="50" height="50" /> MultiChat</h3>
+  <h3 class="text-center chat_header"><img src="./assets/angular.png" width="50" height="50" /> MultiChat</h3>
   <div class="messaging">
     <div class="inbox_msg">
       <div class="mesgs">
         <div class="msg_history">
           <div *ngFor="let msg of messages">
+
           <div class="incoming_msg" *ngIf="msg.type == 'received'">
             <div class="incoming_msg_img"> </div>
             <div class="received_msg">
@@ -17,6 +18,7 @@
               </div>
             </div>
           </div>
+
           <div class="outgoing_msg" *ngIf="msg.type == 'sent'">
             <div class="sent_msg">
               <p>
@@ -25,6 +27,7 @@
               <span class="time_date"> {{msg.date | date:'medium'}}</span>
             </div>
           </div>
+          
         </div>
         </div>
         <div class="type_msg">
@@ -38,6 +41,5 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
