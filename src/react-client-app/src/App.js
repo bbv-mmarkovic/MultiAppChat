@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import reactImg from './react.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-regular-svg-icons'
+import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
+import { HubConnectionBuilder } from '@aspnet/signalr';
 
 class App extends Component {
 
@@ -10,13 +11,46 @@ class App extends Component {
     super(props);
 
     this.state = {
-      nick: '',
+      clientId: '',
       type: '',
       message: '',
       messages: [],
       hubConnection: null,
     };
   }
+
+  componentDidMount = () => {
+    const clientId = Date.length;
+    this.setState({ clientId });
+
+    const hubConnection = new HubConnectionBuilder()
+      .withUrl('http://localhost:5000/MessageHub')
+      .build();
+
+    this.setState({ hubConnection }, () => {
+      this.state.hubConnection
+        .start()
+        .then(() => console.log('Connection started!'))
+        .catch(err => console.log('Error while establishing connection :('));
+
+      this.state.hubConnection.on('MessageReceived', (receivedMessage) => {
+        console.log('Message received: ' + receivedMessage.message);
+        const messages = this.state.messages.concat([receivedMessage]);
+        this.setState({ messages });
+      });
+    });
+  };
+
+  sendMessage = () => {
+    var message = { 
+      clientuniqueid: this.state.clientId, 
+      type: 'sent',
+      message: this.state.message,
+      date: Date.now()
+    };
+
+    this.state.hubConnection.invoke('NewMessage', message);
+  };
 
   renderIncoming(msg) {
     return (
