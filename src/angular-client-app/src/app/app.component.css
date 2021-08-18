@@ -4,7 +4,7 @@
 }
 
 .chat_header{
-  color: #808f05
+  color: rgb(143, 20, 25)
 }
 
 img {
@@ -49,7 +49,7 @@ img {
 }
 
 .recent_heading h4 {
-  color: #808f05;
+  color: rgb(143, 20, 25);
   font-size: 21px;
   margin: auto;
 }
@@ -160,7 +160,7 @@ img {
 }
 
 .sent_msg p {
-  background: #808f05 none repeat scroll 0 0;
+  background: rgb(143, 20, 25) none repeat scroll 0 0;
   border-radius: 3px;
   font-size: 14px;
   margin: 0;
@@ -193,7 +193,7 @@ img {
 }
 
 .msg_send_btn {
-  background: #808f05 none repeat scroll 0 0;
+  background: rgb(143, 20, 25) none repeat scroll 0 0;
   border: medium none;
   border-radius: 50%;
   color: #fff;

@@ -1,6 +1,8 @@
 ﻿@inject NavigationManager navigationManager
 @using Microsoft.AspNetCore.SignalR.Client;
 
+<h1 class="header"><img src="img/blazor.png" width="50" height="50" alt="" /> MultiChat</h1>
+
 <div class="container">
     <div>
         @status
@@ -107,7 +109,7 @@
 
         public bool IsSent => this.Type == SentType;
 
-        public string DateAsText => this.Date.ToString("d");
+        public string DateAsText => this.Date.ToString("dd. MMM, HH:mm:sss");
     }
 
     protected override async Task OnInitializedAsync()
