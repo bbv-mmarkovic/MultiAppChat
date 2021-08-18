@@ -1,5 +1,12 @@
 # MultiAppChat
-Diffrente Frontend Clients Technologies interact in a Chat Application.
+
+Demo Applications showing how different frontend clients technologies can interact
+with each other in a chat application.
+
+![Angular Video](https://raw.githubusercontent.com/bbv-mmarkovic/MultiAppChat/main/src/angular-client-app/angular-chatting.gif "Angular Video")
+
+![Blazor Video](https://raw.githubusercontent.com/bbv-mmarkovic/MultiAppChat/main/src/blazor-client-app/blazor-chatting.gif "Blazor Video")
+
 
 # Installation
 
