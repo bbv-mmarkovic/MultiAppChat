@@ -31,6 +31,7 @@ namespace ServerBackendApi
                         .AllowCredentials()
                         .WithOrigins(
                             "http://localhost:4200",
+                            "http://localhost:3000/",
                             "http://localhost:20093",
                             "https://localhost:44328")
                         .AllowAnyHeader()

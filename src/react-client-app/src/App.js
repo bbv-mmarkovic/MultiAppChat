@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       clientId: '',
       type: '',
-      message: '',
+      currentMessage: '',
       messages: [],
       hubConnection: null,
     };
@@ -35,7 +35,7 @@ class App extends Component {
 
       this.state.hubConnection.on('MessageReceived', (receivedMessage) => {
         console.log('Message received: ' + receivedMessage.message);
-        const messages = this.state.messages.concat([receivedMessage]);
+        const messages = this.state.messages.concat(receivedMessage);
         this.setState({ messages });
       });
     });
@@ -45,11 +45,17 @@ class App extends Component {
     var message = { 
       clientuniqueid: this.state.clientId, 
       type: 'sent',
-      message: this.state.message,
+      message: this.state.currentMessage,
       date: Date.now()
     };
 
-    this.state.hubConnection.invoke('NewMessage', message);
+    console.log('sending: ' + message.message);
+    this.state.hubConnection
+      .invoke('NewMessage', message) /*
+      .catch(err => console.log(err))*/;
+
+    const currentMessage = '';
+    this.setState({ currentMessage });
   };
 
   renderIncoming(msg) {
@@ -81,12 +87,22 @@ class App extends Component {
     );
   }
 
+  handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === 'NumpadEnter') {
+      this.sendMessage();
+    }
+  };
+
   renderSendMessage() {
     return (
       <div className="type_msg">
         <div className="input_msg_write">
-          <input type="text" className="write_msg" placeholder="Type a message" />
-          <button className="msg_send_btn" type="button">
+          <input type="text" className="write_msg" placeholder="Type a message"
+            value={this.state.currentMessage}
+            onKeyDown={this.handleKeyDown}
+            onChange={e => this.setState({ currentMessage: e.target.value })}
+          />
+          <button className="msg_send_btn" type="button" onClick={this.sendMessage}>
             <FontAwesomeIcon icon={faPaperPlane} />
           </button>
         </div>
@@ -102,11 +118,11 @@ class App extends Component {
           <div className="inbox_msg">
             <div className="mesgs">
               <div className="msg_history">
-                {this.state.messages.map((message, index) => (
+                {this.state.messages.map((message, _) => (
                   <div>
-                    {message.type === 'received'
-                      ? this.renderIncoming(message)
-                      : this.renderSent(message)
+                    {message.clientuniqueid === this.clientId
+                      ? this.renderSent(message)
+                      : this.renderIncoming(message)
                     }
                   </div>
                 ))}
