@@ -16,6 +16,7 @@ export class ChatService {
   }
 
   sendMessage(message: Message) {
+    console.log('Sending. Hub state: ' + this._hubConnection.state);
     this._hubConnection.invoke('NewMessage', message);
   }
 

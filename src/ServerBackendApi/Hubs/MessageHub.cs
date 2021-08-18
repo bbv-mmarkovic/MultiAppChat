@@ -11,8 +11,8 @@
     {
         public async Task NewMessage(Message msg)
         {
-            await this.Clients.All.SendAsync("MessageReceived", msg);
             Console.WriteLine($"NewMessage: from={msg.clientuniqueid}, msg={msg.message}");
+            await this.Clients.All.SendAsync("MessageReceived", msg);
         }
 
     }

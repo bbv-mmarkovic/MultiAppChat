@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      clientId: '',
+      clientId: Date.length,
       type: '',
       currentMessage: '',
       messages: [],
@@ -20,9 +20,11 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    const clientId = Date.length;
-    this.setState({ clientId });
+    this.startConnection();
+    //this.registerOnServerEvents();
+  };
 
+  startConnection = () => {
     const hubConnection = new HubConnectionBuilder()
       .withUrl('http://localhost:5000/MessageHub')
       .build();
@@ -31,27 +33,41 @@ class App extends Component {
       this.state.hubConnection
         .start()
         .then(() => console.log('Connection started!'))
-        .catch(err => console.log('Error while establishing connection :('));
+        .catch(err => {
+          console.log('Error while establishing connection :(' + err);
+          setTimeout(function() { this.startConnection(); }, 5000);
+        });
 
-      this.state.hubConnection.on('MessageReceived', (receivedMessage) => {
+        this.state.hubConnection
+          .on('MessageReceived', (receivedMessage) => {
+            console.log('Message received: ' + receivedMessage.message);
+            const messages = this.state.messages.concat(receivedMessage);
+            this.setState({ messages });
+        });
+    });
+  };
+
+  registerOnServerEvents = () => {
+    this.state.hubConnection
+      .on('MessageReceived', (receivedMessage) => {
         console.log('Message received: ' + receivedMessage.message);
         const messages = this.state.messages.concat(receivedMessage);
         this.setState({ messages });
-      });
     });
   };
 
   sendMessage = () => {
-    var message = { 
+    const newMessage = { 
       clientuniqueid: this.state.clientId, 
       type: 'sent',
       message: this.state.currentMessage,
       date: Date.now()
     };
 
-    console.log('sending: ' + message.message);
-    this.state.hubConnection
-      .invoke('NewMessage', message) /*
+    console.log('hub state: ' + this.state.hubConnection.state);
+    console.log('sending: ' + newMessage.message);
+
+    this.state.hubConnection.invoke('NewMessage', newMessage); /*
       .catch(err => console.log(err))*/;
 
     const currentMessage = '';
@@ -67,7 +83,7 @@ class App extends Component {
             <p>
               {msg.message}
             </p>
-            <span class="time_date">{msg.date}</span>
+            <span className="time_date">{msg.date}</span>
           </div>
         </div>
       </div>
@@ -113,7 +129,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <h3 className="text-center chat_header"><img src={reactImg} width="50" height="50" alt="" /> MultiChat</h3>
+        <h1 className="text-center chat_header"><img src={reactImg} width="50" height="50" alt="" /> MultiChat</h1>
         <div className="messaging">
           <div className="inbox_msg">
             <div className="mesgs">
