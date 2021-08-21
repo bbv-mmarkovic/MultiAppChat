@@ -3,9 +3,7 @@
 Demo Applications showing how different frontend clients technologies can interact
 with each other in a chat application.
 
-![Angular Video](https://raw.githubusercontent.com/bbv-mmarkovic/MultiAppChat/main/src/angular-client-app/angular-chatting.gif "Angular Video")
-
-![Blazor Video](https://raw.githubusercontent.com/bbv-mmarkovic/MultiAppChat/main/src/blazor-client-app/blazor-chatting.gif "Blazor Video")
+![Demo Video](https://raw.githubusercontent.com/bbv-mmarkovic/MultiAppChat/main/doc/demo.gif "Demo Video")
 
 
 # Installation
@@ -30,5 +28,7 @@ with each other in a chat application.
 
 # Credits
 
-The Angular and .NET Backend Code was taken from  [AngularExamplesHub](https://github.com/AngularExamplesHub) /
+The Angular and .NET Backend Code were taken from  [AngularExamplesHub](https://github.com/AngularExamplesHub) /
 [angular-chat-app](https://github.com/AngularExamplesHub/angular-chat-app) by [Jayesh Agrawa](https://github.com/JayeshAgrawal) under [MIT License](https://github.com/AngularExamplesHub/angular-chat-app/blob/master/LICENSE).
+
+The Blazor Code was adapted from [Microsofts Tutorial: Build a Blazor Server chat app](https://docs.microsoft.com/en-us/azure/azure-signalr/signalr-tutorial-build-blazor-server-chat-app)
