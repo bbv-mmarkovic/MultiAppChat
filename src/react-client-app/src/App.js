@@ -11,17 +11,23 @@ class App extends Component {
     super(props);
 
     this.state = {
-      clientId: Date.length,
+      clientId: new Date().getTime().toString(),
       type: '',
       currentMessage: '',
       messages: [],
       hubConnection: null,
     };
+  };
+
+  convertISOStringToMonthDay(date) {
+    //const tempDate = new Date(date).toString().split(' ');
+    //const formattedDate = `${tempDate[1]} ${+tempDate[2]}`;
+    //return formattedDate;
+    return new Date(date).toLocaleString();
   }
 
   componentDidMount = () => {
     this.startConnection();
-    //this.registerOnServerEvents();
   };
 
   startConnection = () => {
@@ -38,30 +44,21 @@ class App extends Component {
           setTimeout(function() { this.startConnection(); }, 5000);
         });
 
-        this.state.hubConnection
-          .on('MessageReceived', (receivedMessage) => {
-            console.log('Message received: ' + receivedMessage.message);
-            const messages = this.state.messages.concat(receivedMessage);
-            this.setState({ messages });
-        });
+      this.state.hubConnection
+        .on('MessageReceived', (receivedMessage) => {
+          console.log('Message received: ' + receivedMessage.message);
+          const messages = this.state.messages.concat(receivedMessage);
+          this.setState({ messages });
+      });
     });
-  };
-
-  registerOnServerEvents = () => {
-    this.state.hubConnection
-      .on('MessageReceived', (receivedMessage) => {
-        console.log('Message received: ' + receivedMessage.message);
-        const messages = this.state.messages.concat(receivedMessage);
-        this.setState({ messages });
-    });
-  };
+  }
 
   sendMessage = () => {
     const newMessage = { 
       clientuniqueid: this.state.clientId, 
       type: 'sent',
       message: this.state.currentMessage,
-      date: Date.now()
+      date: new Date()
     };
 
     console.log('hub state: ' + this.state.hubConnection.state);
@@ -83,12 +80,12 @@ class App extends Component {
             <p>
               {msg.message}
             </p>
-            <span className="time_date">{msg.date}</span>
+            <span className="time_date">{ this.convertISOStringToMonthDay(msg.date) }</span>
           </div>
         </div>
       </div>
     );
-  }
+  };
 
   renderSent(msg) {
     return (
@@ -97,7 +94,7 @@ class App extends Component {
           <p>
             {msg.message}
           </p>
-          <span className="time_date">{msg.date}</span>
+          <span className="time_date">{ this.convertISOStringToMonthDay(msg.date) }</span>
         </div>
       </div>
     );
@@ -136,7 +133,7 @@ class App extends Component {
               <div className="msg_history">
                 {this.state.messages.map((message, _) => (
                   <div>
-                    {message.clientuniqueid === this.clientId
+                    {message.clientuniqueid === this.state.clientId
                       ? this.renderSent(message)
                       : this.renderIncoming(message)
                     }
