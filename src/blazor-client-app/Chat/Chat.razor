@@ -43,11 +43,15 @@
                 </div>
                 <div class="type_msg">
                     <div class="input_msg_write">
-                        <input type="text" class="write_msg" placeholder="Type a message"
+                        <input type="text"
+                               id="textInput"
+                               class="write_msg" placeholder="Type a message"
                                @bind="@newMessage"
                                @oninput="@((changeEa) => this.newMessage = (string)changeEa.Value)"
                                @onkeydown="@EnterAsnyc" />
-                        <button class="msg_send_btn" type="button" @onclick="@(() => SendAsync(newMessage))">
+                        <button class="msg_send_btn" type="button"
+                                id="sendButton"
+                                @onclick="@(() => SendAsync(newMessage))">
                             <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
                         </button>
                     </div>

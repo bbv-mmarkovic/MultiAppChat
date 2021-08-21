@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>blazor_client_app</RootNamespace>
+
+    <IsPackable>false</IsPackable>
+
+    <Authors>Marko Marković</Authors>
+
+    <Company>bbv Software Services AG</Company>
+
+    <Product>MultiAppChat</Product>
+
+    <Copyright>(c) bbv Software Services AG</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="bunit.web" Version="1.2.49" />
+    <PackageReference Include="FakeItEasy" Version="7.1.0" />
+    <PackageReference Include="FluentAssertions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="NUnit" Version="3.13.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="coverlet.collector" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\blazor-client-app\blazor-client-app.csproj" />
+  </ItemGroup>
+
+</Project>

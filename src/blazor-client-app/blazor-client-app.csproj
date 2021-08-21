@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Authors>Marko Marković</Authors>
+    <Company>bbv Software Services AG</Company>
+    <Product>MultiAppChat</Product>
+    <Copyright>(c) bbv Software Services AG</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
