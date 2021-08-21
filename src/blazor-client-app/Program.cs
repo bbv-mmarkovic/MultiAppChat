@@ -1,12 +1,14 @@
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-
 namespace blazor_client_app
 {
+    using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+    using Microsoft.Extensions.DependencyInjection;
+
+    using System;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+
+    using blazor_client_app.Chat;
+
     public class Program
     {
         public static async Task Main(string[] args)
@@ -18,6 +20,8 @@ namespace blazor_client_app
             {
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
             });
+
+            builder.Services.AddScoped<ChatService>();
 
             await builder.Build().RunAsync();
         }
