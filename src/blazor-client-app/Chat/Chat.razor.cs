@@ -10,7 +10,7 @@
     public partial class Chat
     {
         [Inject]
-        private ChatService chatService { get; set; }
+        private IChatService chatService { get; set; }
 
         private readonly List<ChatMessage> messages = new List<ChatMessage>();
 

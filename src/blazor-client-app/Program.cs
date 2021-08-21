@@ -21,7 +21,7 @@ namespace blazor_client_app
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
             });
 
-            builder.Services.AddScoped<ChatService>();
+            builder.Services.AddScoped<IChatService, ChatService>();
 
             await builder.Build().RunAsync();
         }

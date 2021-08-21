@@ -5,10 +5,9 @@
 
     using Microsoft.AspNetCore.SignalR.Client;
 
-    public class ChatService : IAsyncDisposable
+    public class ChatService : IChatService
     {
         private static readonly string ClientGuid = Guid.NewGuid().ToString("N");
-
 
         private bool initialized;
 
@@ -16,20 +15,18 @@
 
         public string ClientId => ClientGuid;
 
-        public async Task InitializeAsync(Action<ChatMessage> OnMessageReceived)
+        public async Task InitializeAsync(Action<ChatMessage> onMessageReceived)
         {
             if (this.initialized)
             {
                 return;
             }
 
-            var hubUrl = ChatConstants.HubUrl; // baseUrl.TrimEnd('/') + HubUrl;
-
             hubConnection = new HubConnectionBuilder()
-                .WithUrl(hubUrl)
+                .WithUrl(ChatConstants.HubUrl)
                 .Build();
 
-            hubConnection.On<ChatMessage>("MessageReceived", OnMessageReceived);
+            hubConnection.On<ChatMessage>("MessageReceived", onMessageReceived);
 
             await this.hubConnection.StartAsync();
 
