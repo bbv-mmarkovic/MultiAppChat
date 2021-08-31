@@ -4,6 +4,7 @@
 }
 
 .chat_header{
+  margin-top: 10px;
   color: rgb(143, 20, 25)
 }
 
@@ -210,6 +211,6 @@ img {
 }
 
 .msg_history {
-  height: 516px;
+  height: 525px;
   overflow-y: auto;
 }
