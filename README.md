@@ -8,6 +8,8 @@ with each other in a chat application.
 
 # Installation
 
+To install all necessary executables run the following commands in the corresponding project folders.
+
 ## .NET Core Backend API
 
 `dotnet restore`
@@ -16,7 +18,17 @@ with each other in a chat application.
 
 `npm install`
 
+## Blazor Frontend
+
+`nuget restore`
+
+## React Frontend
+
+`npm install`
+
 # Execution
+
+To start the application run the following commands in the corresponding project folders.
 
 ## .NET Core Backend API
 
@@ -25,6 +37,14 @@ with each other in a chat application.
 ## Angular Frontend
 
 `ng serve`
+
+## Blazor Frontend
+
+`dotnet run`
+
+## React Frontend
+
+`npm start`
 
 # Credits
 
